@@ -56,13 +56,13 @@ const putUser = (req, res) => {
   database
     .query(
       "UPDATE users set firstname = ?, lastname = ?, email = ?, city = ?, language = ? where id = ?",
-      [firstname, lastname, email, city, language]
+      [firstname, lastname, email, city, language, id]
     )
     .then(([result]) => {
       if (result.affectedRows === 0) {
         res.status(404).send("Not Found");
       } else {
-        res.sendStatus(204);
+        res.sendStatus(200);
       };
     })
     .catch((err) => {
