@@ -100,11 +100,32 @@ const putMovie = (req, res) => {
     });
 };
 
+const deleteMovieById = (req, res) => {
+  const id = parseInt(req.params.id);
+  const { title, director, year, color, duration } = req.body;
+
+  database
+    .query("DELETE FROM movie WHERE id = ?", [title, director, year, color, duration]
+    )
+    .then(([result]) => {
+      if (result.affectedRows === 0) {
+        res.status(404).send("Not Found");
+      } else {
+        res.sendStatus(204);
+      };
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Error deleting the movie")
+    });
+}
+
 module.exports = {
   getMovies,
   getMovieById,
   postMovie,
   putMovie,
+  deleteMovieById,
 };
 
 
