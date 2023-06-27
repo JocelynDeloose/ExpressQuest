@@ -21,7 +21,6 @@ database
 database
   .query("select * from movies")
   .then((result) => {
-    console.log(result);
   })
   .catch((err) => {
     console.error(err);
@@ -30,7 +29,6 @@ database
 database
   .query("select * from movies")
   .then(([movies]) => {
-    console.log(movies);
   })
   .catch((err) => {
     console.error(err);

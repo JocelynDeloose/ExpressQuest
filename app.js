@@ -16,17 +16,20 @@ app.get("/", welcome);
 
 const movieHandlers = require("./movieHandlers");
 const userHandlers = require("./userHandlers");
+const { hashPassword } = require("./services/auth");
+
 
 app.get("/api/movies", movieHandlers.getMovies);
 app.get("/api/movies/:id", movieHandlers.getMovieById);
 app.get("/api/users", userHandlers.getUser);
 app.get("/api/users/:id", userHandlers.getUserById);
 app.post("/api/movies", validateMovie, movieHandlers.postMovie);
-app.post('/api/users', validateUser, userHandlers.postUser);
+app.post('/api/users', hashPassword, userHandlers.postUser);
 app.put("/api/movies/:id", validateMovie, movieHandlers.putMovie);
-app.put('/api/users/:id', validateUser, userHandlers.putUser);
+app.put('/api/users/:id', hashPassword, userHandlers.putUser);
 app.delete('/api/movies/:id', movieHandlers.deleteMovieById);
 app.delete('/api/users/:id', userHandlers.deleteUserById);
+
 
 
 app.listen(port, (err) => {
